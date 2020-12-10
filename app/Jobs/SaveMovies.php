@@ -25,7 +25,6 @@ class SaveMovies implements ShouldQueue
     {
         $this->arrayKeys = $arrayKeys;
         $this->rows = $rows;
-
     }
 
     /**
@@ -38,7 +37,9 @@ class SaveMovies implements ShouldQueue
         $rows = $this->rows;
         $firstRow = $this->arrayKeys;
         foreach ($rows as $row) {
+//            $movie = Movie::firstOrNew(['imdb_title_id' => $row[0]]);
             $movie = new Movie;
+
             $movie->imdb_title_id = $row[array_search('imdb_title_id', $firstRow)];
             $movie->title = $row[array_search('title', $firstRow)];
             $movie->year = $row[array_search('year', $firstRow)];

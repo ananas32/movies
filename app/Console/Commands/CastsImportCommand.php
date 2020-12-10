@@ -2,18 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Imports\CastsImport;
 use Illuminate\Console\Command;
-use App\Imports\MoviesImport;
 use Excel;
 
-class MoviesImportCommand extends Command
+class CastsImportCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'movies:parse';
+    protected $signature = 'casts:parse';
 
     /**
      * The console command description.
@@ -40,7 +40,7 @@ class MoviesImportCommand extends Command
     public function handle()
     {
         dump('start at: ' . now()->format('Y-m-d H:i:s'));
-        Excel::import(new MoviesImport, public_path() . '/storage/csv-files/IMDb movies.csv');
+        Excel::import(new CastsImport, public_path() . '/storage/csv-files/IMDb names.csv');
         dump('stop at: ' . now()->format('Y-m-d H:i:s'));
         dd('movies import success');
     }

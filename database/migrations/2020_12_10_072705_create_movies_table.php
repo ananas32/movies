@@ -26,8 +26,8 @@ class CreateMoviesTable extends Migration
             $table->text('writer')->nullable();
             $table->text('actors')->nullable();
             $table->text('description')->nullable();
-            $table->text('avg_vote')->nullable();
-            $table->text('votes')->nullable();
+            $table->double('avg_vote',2, 2)->nullable();
+            $table->integer('votes')->nullable();
             $table->text('reviews_from_users')->nullable();
             $table->text('reviews_from_critics')->nullable();
             $table->string('is_usa', 255)->nullable();
