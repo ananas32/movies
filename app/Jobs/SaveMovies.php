@@ -4,11 +4,11 @@ namespace App\Jobs;
 
 use App\Models\Country;
 use App\Models\Genre;
+use App\Models\Language;
 use App\Models\Movie;
 use App\Models\NewMovies;
 use App\Models\OldMovies;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -72,7 +72,8 @@ class SaveMovies implements ShouldQueue
             $movie->reviews_from_users = $row[array_search('reviews_from_users', $firstRow)];
             $movie->reviews_from_critics = $row[array_search('reviews_from_critics', $firstRow)];
 
-            if (strripos($country, 'USA') !== false) {
+            $isUSA = strripos($country, 'USA') !== false;
+            if ($isUSA) {
                 $movie->is_usa = 1;
             } else {
                 $movie->is_europe = 1;
@@ -84,23 +85,40 @@ class SaveMovies implements ShouldQueue
 
             if ($country) {
 //                $countryRow = Country::firstOrNew(['title' => $country]);
+                $countryArray = explode(',', $genre);
+                foreach ($countryArray as $item) {
+                    $countryDb = Country::firstOrNew(['name' => $item]);
+                    $countryDb->name = $item;
+                    if ($isUSA) {
+                        $countryDb->is_usa = 1;
+                    } else {
+                        $countryDb->is_europe = 1;
+                    }
+                    $countryDb->save();
+                }
             }
 
             if ($language) {
-
+                $languageArray = explode(',', $genre);
+                foreach ($languageArray as $item) {
+                    $languageDb = Language::firstOrNew(['name' => $item]);
+                    $languageDb->name = $item;
+                    $languageDb->save();
+                }
             }
 
             if ($genre) {
-                $array = explode(',', $genre);
-                foreach ($array as $item) {
-                    $genre = Genre::firstOrNew(['name' => $item]);
-                    $genre->save();
+                $genreArray = explode(',', $genre);
+                foreach ($genreArray as $item) {
+                    $genreDb = Genre::firstOrNew(['name' => $item]);
+                    $genreDb->name = $item;
+                    $genreDb->save();
                 }
             }
 
             $movie->save();
 
-            if($year < 1980) {
+            if ($year < 1980) {
                 $oldMovie = new OldMovies;
                 $oldMovie->movie_id = $movie->id;
                 $oldMovie->year = intval($year);

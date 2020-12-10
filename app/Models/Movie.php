@@ -10,4 +10,9 @@ class Movie extends Model
     use HasFactory;
 
     protected $fillable = ['*'];
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }

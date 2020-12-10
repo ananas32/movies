@@ -15,9 +15,11 @@ class CreateOldMoviesTable extends Migration
     {
         Schema::create('old_movies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('movie_id');
+            $table->integer('movie_id')->unsigned();
             $table->integer('year')->nullable();
             $table->timestamps();
+
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
         });
     }
 

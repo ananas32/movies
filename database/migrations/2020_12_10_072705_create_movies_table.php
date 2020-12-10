@@ -14,7 +14,7 @@ class CreateMoviesTable extends Migration
     public function up()
     {
         Schema::create('movies', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('imdb_title_id', 255)->default(null);
             $table->text('title')->nullable();
             $table->text('year')->nullable();
@@ -35,6 +35,51 @@ class CreateMoviesTable extends Migration
             $table->boolean('is_top')->nullable();
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::create('country_movies', function (Blueprint $table) {
+            $table->integer('country_id')->unsigned();
+            $table->integer('movie_id')->unsigned();
+
+            $table->foreign('country_id')
+                ->references('id')
+                ->on('countries')
+                ->onDelete('cascade');
+
+            $table->foreign('movie_id')
+                ->references('id')
+                ->on('movies')
+                ->onDelete('cascade');
+        });
+
+        Schema::create('genre_movies', function (Blueprint $table) {
+            $table->integer('genre_id')->unsigned();
+            $table->integer('movie_id')->unsigned();
+
+            $table->foreign('genre_id')
+                ->references('id')
+                ->on('genres')
+                ->onDelete('cascade');
+
+            $table->foreign('movie_id')
+                ->references('id')
+                ->on('movies')
+                ->onDelete('cascade');
+        });
+
+        Schema::create('language_movies', function (Blueprint $table) {
+            $table->integer('language_id')->unsigned();
+            $table->integer('movie_id')->unsigned();
+
+            $table->foreign('language_id')
+                ->references('id')
+                ->on('languages')
+                ->onDelete('cascade');
+
+            $table->foreign('movie_id')
+                ->references('id')
+                ->on('movies')
+                ->onDelete('cascade');
         });
     }
 
