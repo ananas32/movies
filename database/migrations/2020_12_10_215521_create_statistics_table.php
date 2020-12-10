@@ -14,7 +14,11 @@ class CreateStatisticsTable extends Migration
     public function up()
     {
         Schema::create('statistics', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('description')->nullable();
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('stop_at')->nullable();
+            $table->integer('total_row')->unsigned();
             $table->timestamps();
         });
     }

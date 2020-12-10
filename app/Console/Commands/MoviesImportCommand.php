@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Statistic;
 use Illuminate\Console\Command;
 use App\Imports\MoviesImport;
 use Excel;
@@ -39,9 +40,15 @@ class MoviesImportCommand extends Command
      */
     public function handle()
     {
-        dump('start at: ' . now()->format('Y-m-d H:i:s'));
+        $startAt = now()->format('Y-m-d H:i:s');
         Excel::import(new MoviesImport, public_path() . '/storage/csv-files/IMDb movies.csv');
-        dump('stop at: ' . now()->format('Y-m-d H:i:s'));
+        $stopAt = now()->format('Y-m-d H:i:s');
         dd('movies import success');
+        $statistic = new Statistic();
+        $statistic->description = 'cast table';
+        $statistic->total_row = MoviesImport::count();
+        $statistic->start_at = $startAt;
+        $statistic->stop_at = $stopAt;
+        $statistic->save();
     }
 }
