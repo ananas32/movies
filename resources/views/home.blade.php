@@ -409,31 +409,43 @@
         </div>
     @endif
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-        @dd($bestMovies->chunk())
-        <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-            <div class="ml-4 text-lg leading-7 font-semibold">Топ фильмов USA 1910 - 1920</div>
-        </div>
+
+        @php
+        $y1 = 1910;
+        $y2 = 1920;
+        @endphp
 
         @if(isset($bestMovies) && $bestMovies)
-            <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                @foreach($bestMovies as $movie)
-                    <div class="grid grid-cols-1 md:grid-cols-1">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <div class="ml-12 text-lg leading-12 font-semibold">
-                                    <a href="#" class="underline text-gray-900 dark:text-white">{{ $movie->title }} | {{ $movie->year }}  Avg_vote: {{ $movie->avg_vote }}</a>
-                                </div>
-                            </div>
+            @foreach($bestMovies->chunk(5) as $chunk)
+                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                    <div class="ml-4 text-lg leading-7 font-semibold">Топ фильмов USA {{ $y1 }} - {{ $y2 }}</div>
+                </div>
 
-                            <div class="ml-12">
-                                <div class="mt-12 text-gray-600 dark:text-gray-400 text-sm">
-                                    {{ $movie->description }}
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    @foreach($chunk as $movie)
+                        <div class="grid grid-cols-1 md:grid-cols-1">
+                            <div class="p-6">
+                                <div class="flex items-center">
+                                    <div class="ml-12 text-lg leading-12 font-semibold">
+                                        <a href="#" class="underline text-gray-900 dark:text-white">{{ $movie->title }}
+                                            | {{ $movie->year }} Avg_vote: {{ $movie->avg_vote }}</a>
+                                    </div>
+                                </div>
+
+                                <div class="ml-12">
+                                    <div class="mt-12 text-gray-600 dark:text-gray-400 text-sm">
+                                        {{ $movie->description }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+                @php
+                $y1 = $y1+10;
+                $y2 = $y2+10;
+                @endphp
+            @endforeach
         @endif
         <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
             <div class="text-center text-sm text-gray-500 sm:text-left">
