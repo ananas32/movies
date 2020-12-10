@@ -37,8 +37,14 @@ class SaveMovies implements ShouldQueue
         $rows = $this->rows;
         $firstRow = $this->arrayKeys;
         foreach ($rows as $row) {
-//            $movie = Movie::firstOrNew(['imdb_title_id' => $row[0]]);
-            $movie = new Movie;
+
+            if (env('FIRST_START_PARSER')) {
+                //first start
+                $movie = new Movie;
+            } else {
+                // update parser
+                $movie = Movie::firstOrNew(['imdb_title_id' => $row[0]]);
+            }
 
             $movie->imdb_title_id = $row[array_search('imdb_title_id', $firstRow)];
             $movie->title = $row[array_search('title', $firstRow)];
