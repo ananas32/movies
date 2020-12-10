@@ -18,10 +18,10 @@ class CreateMoviesTable extends Migration
             $table->string('imdb_title_id', 255)->default(null);
             $table->text('title')->nullable();
             $table->text('year')->nullable();
-            $table->text('genre')->nullable();
+//            $table->text('genre')->nullable();
             $table->text('duration')->nullable();
-            $table->text('country')->nullable();
-            $table->text('language')->nullable();
+//            $table->text('country')->nullable();
+//            $table->text('language')->nullable();
             $table->text('director')->nullable();
             $table->text('writer')->nullable();
             $table->text('actors')->nullable();

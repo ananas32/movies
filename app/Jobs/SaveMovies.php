@@ -59,10 +59,10 @@ class SaveMovies implements ShouldQueue
             $movie->imdb_title_id = $row[array_search('imdb_title_id', $firstRow)];
             $movie->title = $row[array_search('title', $firstRow)];
             $movie->year = $year;
-            $movie->genre = $genre;
+//            $movie->genre = $genre;
             $movie->duration = $row[array_search('duration', $firstRow)];
-            $movie->country = $country;
-            $movie->language = $language;
+//            $movie->country = $country;
+//            $movie->language = $language;
             $movie->director = $row[array_search('director', $firstRow)];
             $movie->writer = $row[array_search('writer', $firstRow)];
             $movie->actors = $row[array_search('actors', $firstRow)];
