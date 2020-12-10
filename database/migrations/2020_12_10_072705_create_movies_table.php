@@ -26,13 +26,13 @@ class CreateMoviesTable extends Migration
             $table->text('writer')->nullable();
             $table->text('actors')->nullable();
             $table->text('description')->nullable();
-            $table->double('avg_vote',2, 2)->nullable();
+            $table->text('avg_vote')->nullable();
             $table->integer('votes')->nullable();
             $table->text('reviews_from_users')->nullable();
             $table->text('reviews_from_critics')->nullable();
-            $table->string('is_usa', 255)->nullable();
-            $table->string('is_europe', 255)->nullable();
-            $table->string('is_top', 255)->nullable();
+            $table->boolean('is_usa')->nullable();
+            $table->boolean('is_europe')->nullable();
+            $table->boolean('is_top')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
