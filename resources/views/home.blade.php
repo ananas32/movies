@@ -418,10 +418,10 @@
         @if(isset($bestMovies) && $bestMovies)
             @foreach($bestMovies->chunk(5) as $chunk)
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <div class="ml-4 text-lg leading-7 font-semibold">Топ фильмов USA {{ $y1 }} - {{ $y2 }}</div>
+                    <h2 class="sm:pb-0">Топ фильмов USA {{ $y1 }} - {{ $y2 }}</h2>
                 </div>
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                <div class="mt-0 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     @foreach($chunk as $movie)
                         <div class="grid grid-cols-1 md:grid-cols-1">
                             <div class="p-6">

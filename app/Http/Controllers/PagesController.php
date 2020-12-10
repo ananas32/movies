@@ -12,6 +12,7 @@ class PagesController extends Controller
         $movie = new Movie;
 
         $bestMovies = $movie->makeQueryList('is_usa');
+        $bestMoviesEs = $movie->makeQueryList('is_europe');
 
         return view('home', compact('bestMovies'));
     }
