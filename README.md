@@ -1,6 +1,6 @@
-files folder: 
-/storage/app/public/csv-files/IMDb movies.csv
-/storage/app/public/csv-files/IMDb names.csv
+<p>files folder: </p>
+<p>/storage/app/public/csv-files/IMDb movies.csv</p>
+<p>/storage/app/public/csv-files/IMDb names.csv</p>
 
 php artisan storage:link
 php artisan migrate
