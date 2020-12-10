@@ -14,7 +14,17 @@ class CreateCastsTable extends Migration
     public function up()
     {
         Schema::create('casts', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('imdb_name_id')->default(null);
+            $table->string('name', 255)->default(null);
+            $table->string('height', 255)->default(null);
+            $table->string('bio', 255)->default(null);
+            $table->string('date_of_birth', 255)->default(null);
+            $table->string('place_of_birth', 255)->default(null);
+            $table->string('children', 255)->default(null);
+            $table->string('is_usa', 255)->default(null);
+            $table->string('is_europe', 255)->default(null);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
