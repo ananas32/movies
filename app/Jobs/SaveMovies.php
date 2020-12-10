@@ -84,8 +84,8 @@ class SaveMovies implements ShouldQueue
             }
 
             if ($country) {
-//                $countryRow = Country::firstOrNew(['title' => $country]);
-                $countryArray = explode(',', $genre);
+                $arrayCountrySync = [];
+                $countryArray = explode(',', $country);
                 foreach ($countryArray as $item) {
                     $countryDb = Country::firstOrNew(['name' => $item]);
                     $countryDb->name = $item;
@@ -95,28 +95,46 @@ class SaveMovies implements ShouldQueue
                         $countryDb->is_europe = 1;
                     }
                     $countryDb->save();
+                    $arrayCountrySync[] = $countryDb->id;
                 }
             }
 
             if ($language) {
-                $languageArray = explode(',', $genre);
+                $arrayLangueageSync = [];
+                $languageArray = explode(',', $language);
                 foreach ($languageArray as $item) {
                     $languageDb = Language::firstOrNew(['name' => $item]);
                     $languageDb->name = $item;
                     $languageDb->save();
+                    $arrayLangueageSync[] = $languageDb->id;
                 }
             }
 
             if ($genre) {
+                $arrayGenreSync = [];
                 $genreArray = explode(',', $genre);
                 foreach ($genreArray as $item) {
                     $genreDb = Genre::firstOrNew(['name' => $item]);
                     $genreDb->name = $item;
                     $genreDb->save();
+                    $arrayGenreSync[] = $genreDb->id;
+
                 }
             }
 
             $movie->save();
+
+            if(isset($arrayCountrySync) && count($arrayCountrySync)) {
+                $movie->countries()->sync($arrayCountrySync);
+            }
+
+            if(isset($arrayGenreSync) && count($arrayGenreSync)) {
+                $movie->genres()->sync($arrayGenreSync);
+            }
+
+            if(isset($arrayLangueageSync) && count($arrayLangueageSync)) {
+                $movie->languages()->sync($arrayLangueageSync);
+            }
 
             if ($year < 1980) {
                 $oldMovie = new OldMovies;

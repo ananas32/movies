@@ -37,7 +37,7 @@ class CreateMoviesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('country_movies', function (Blueprint $table) {
+        Schema::create('country_movie', function (Blueprint $table) {
             $table->integer('country_id')->unsigned();
             $table->integer('movie_id')->unsigned();
 
@@ -52,7 +52,7 @@ class CreateMoviesTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('genre_movies', function (Blueprint $table) {
+        Schema::create('genre_movie', function (Blueprint $table) {
             $table->integer('genre_id')->unsigned();
             $table->integer('movie_id')->unsigned();
 
@@ -67,7 +67,7 @@ class CreateMoviesTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('language_movies', function (Blueprint $table) {
+        Schema::create('language_movie', function (Blueprint $table) {
             $table->integer('language_id')->unsigned();
             $table->integer('movie_id')->unsigned();
 
@@ -90,6 +90,9 @@ class CreateMoviesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('country_movie');
+        Schema::dropIfExists('genre_movie');
+        Schema::dropIfExists('language_movie');
         Schema::dropIfExists('movies');
     }
 }
