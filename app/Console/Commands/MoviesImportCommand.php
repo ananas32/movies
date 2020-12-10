@@ -39,7 +39,9 @@ class MoviesImportCommand extends Command
      */
     public function handle()
     {
-        Excel::import(new MoviesImport, public_path().'/storage/csv-files/IMDb movies.csv');
+        dump('start at: ' . now()->format('Y-m-d H:i:s'));
+        Excel::import(new MoviesImport, public_path() . '/storage/csv-files/IMDb movies.csv');
+        dump('stop at: ' . now()->format('Y-m-d H:i:s'));
         dd('movies import success');
         return 0;
     }
