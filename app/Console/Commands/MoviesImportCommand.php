@@ -43,7 +43,7 @@ class MoviesImportCommand extends Command
         $startAt = now()->format('Y-m-d H:i:s');
         Excel::import(new MoviesImport, public_path() . '/storage/csv-files/IMDb movies.csv');
         $stopAt = now()->format('Y-m-d H:i:s');
-        dd('movies import success');
+        dump('movies import success');
         $statistic = new Statistic();
         $statistic->description = 'cast table';
         $statistic->total_row = MoviesImport::count();
