@@ -7,3 +7,7 @@ php artisan storage:link <br>
 php artisan migrate <br>
 php artisan casts:parse <br>
 php artisan movies:parse <br>
+
+
+
+php artisan queue:listen --timeout=0

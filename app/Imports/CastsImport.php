@@ -12,14 +12,7 @@ class CastsImport implements ToCollection, WithChunkReading
     use RemembersChunkOffset;
     public function collection(Collection $rows)
     {
-        $chunkOffset = $this->getChunkOffset();
-        dump('first element success created at: ' . now()->format('Y-m-d H:i:s'));
-        $totalQueue = 0;
-        foreach ($rows->chunk(100) as $chunkRows) {
-            \App\Jobs\SaveCasts::dispatch($chunkRows);
-            $totalQueue++;
-            dump('chunk: '.$chunkOffset . ' total: '. $totalQueue);
-        }
+        \App\Jobs\SaveCasts::dispatch($rows);
     }
 
     public function chunkSize(): int
