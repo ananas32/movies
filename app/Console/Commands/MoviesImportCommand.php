@@ -40,15 +40,6 @@ class MoviesImportCommand extends Command
      */
     public function handle()
     {
-        $startAt = now()->format('Y-m-d H:i:s');
-        Excel::import(new MoviesImport, public_path() . '/storage/csv-files/IMDb movies.csv');
-        $stopAt = now()->format('Y-m-d H:i:s');
-        dump('movies import success');
-        $statistic = new Statistic();
-        $statistic->description = 'cast table';
-        $statistic->total_row = MoviesImport::count();
-        $statistic->start_at = $startAt;
-        $statistic->stop_at = $stopAt;
-        $statistic->save();
+        \App\Jobs\StartImportCsv::dispatch();
     }
 }

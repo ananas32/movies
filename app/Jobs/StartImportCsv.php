@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Imports\CastsImport;
+use App\Imports\MoviesImport;
 use Excel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -32,6 +33,7 @@ class StartImportCsv implements ShouldQueue
      */
     public function handle()
     {
-        Excel::import(new CastsImport, public_path() . '/storage/csv-files/IMDb names.csv');
+        Excel::import(new MoviesImport, public_path() . '/storage/csv-files/IMDb movies.csv');
+//        Excel::import(new CastsImport, public_path() . '/storage/csv-files/IMDb names.csv');
     }
 }

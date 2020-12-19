@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\PagesController@index');
 
 Route::get('/test-parse', function (){
-    \Illuminate\Support\Facades\Artisan::call('casts:parse');
+    \Illuminate\Support\Facades\Artisan::call('movies:parse');
 });
