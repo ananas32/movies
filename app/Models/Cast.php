@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Models;
-
+use App\Traits\Parser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cast extends Model
 {
+    use Parser;
+
     protected $parseFieldsCsv = [
         "imdb_name_id",
         "name",
